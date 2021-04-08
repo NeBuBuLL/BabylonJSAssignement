@@ -1,6 +1,7 @@
 let canvas;
 let engine;
 let scene;
+
 // vars for handling inputs
 let inputStates = {};
 
@@ -38,8 +39,7 @@ function createScene() {
     let scene = new BABYLON.Scene(engine);
     let ground = createGround(scene);
     let freeCamera = createFreeCamera(scene);
-
-
+    createForest();
     let rabbit = createRabbit(scene);
    
     createLights(scene);
@@ -61,6 +61,29 @@ function createGround(scene) {
         //groundMaterial.wireframe=true;
     }
     return ground;
+}
+function createForest(){
+    BABYLON.SceneLoader.ImportMesh("Tree.Birch", "assets/", "birch_tree.babylon", scene, (meshes) =>{
+        var tree = meshes[0];
+        tree.isVisible = false;
+        for(var i = 0; i< 250; i++){
+            var newInstance = tree.createInstance("i" + i);
+            let three_random  = random3();
+            let posX = three_random[0];
+            let posZ = three_random[1];
+            let s = three_random[2];
+            newInstance.position = new BABYLON.Vector3(posX, 0 ,posZ);
+            newInstance.rotation.y = Math.random() * 360.0;
+            newInstance.scaling = new BABYLON.Vector3(s,s,s);
+        }
+    });
+}
+function random3(){
+    let x = -500 + Math.random()*1000;
+    let z= -500 + Math.random()*1000;
+    let s = 10 + Math.random()*10;
+    console.log(x);
+    return [x,z, s];
 }
 
 function createLights(scene) {
@@ -94,8 +117,8 @@ function createFreeCamera(scene) {
 function createFollowCamera(scene, target) {
     let camera = new BABYLON.FollowCamera("tankFollowCamera", target.position, scene, target);
 
-    camera.radius = 50; // how far from the object to follow
-	camera.heightOffset = 20; // how high above the object to place the camera
+    camera.radius = 100; // how far from the object to follow
+	camera.heightOffset = 30; // how high above the object to place the camera
 	camera.rotationOffset = 180; // the viewing angle
 	camera.cameraAcceleration = .1; // how fast to move
 	camera.maxCameraSpeed = 5; // speed limit
