@@ -12,6 +12,7 @@ function startGame() {
     engine = new BABYLON.Engine(canvas, true);
     scene = createScene();
 
+    
     // modify some default settings (i.e pointer events to prevent cursor to go 
     // out of the game window)
     modifySettings();
@@ -48,12 +49,12 @@ function createScene() {
 }
 
 function createGround(scene) {
-    const groundOptions = { width:2000, height:2000, subdivisions:20, minHeight:0, maxHeight:100, onReady: onGroundCreated};
+    const groundOptions = { width:1000, height:1000, subdivisions:20, minHeight:0, maxHeight:100, onReady: onGroundCreated};
     //scene is optional and defaults to the current scene
-    const ground = BABYLON.MeshBuilder.CreateGroundFromHeightMap("gdhm", "images/hmap1.png", groundOptions, scene); 
+    const ground = BABYLON.MeshBuilder.CreateGround("ground", groundOptions, scene); 
 
     function onGroundCreated() {
-        const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
+        const groundMaterial = new BABYLON.TerrainMaterial("groundMaterial", scene);
         groundMaterial.diffuseTexture = new BABYLON.Texture("images/grass.jpg");
         ground.material = groundMaterial;
         // to be taken into account by collision detection
@@ -62,33 +63,37 @@ function createGround(scene) {
     }
     return ground;
 }
+
 function createForest(){
     BABYLON.SceneLoader.ImportMesh("Tree.Birch", "assets/", "birch_tree.babylon", scene, (meshes) =>{
         var tree = meshes[0];
         tree.isVisible = false;
-        for(var i = 0; i< 250; i++){
+        for(var i = 0; i< 100; i++){ // cree 100 instances d'un arbres (plus fais ramer il doit y avoir trop de polygones sur le modele de l'arbre 3d (feuilles surtout))
             var newInstance = tree.createInstance("i" + i);
             let three_random  = random3();
             let posX = three_random[0];
             let posZ = three_random[1];
             let s = three_random[2];
-            newInstance.position = new BABYLON.Vector3(posX, 0 ,posZ);
+            newInstance.position = new BABYLON.Vector3(posX, -s /2 ,posZ);
             newInstance.rotation.y = Math.random() * 360.0;
             newInstance.scaling = new BABYLON.Vector3(s,s,s);
         }
     });
 }
-function random3(){
+function random3(){ //Pour mettre des arbres sur toute la carte de facon aleatoire
     let x = -500 + Math.random()*1000;
     let z= -500 + Math.random()*1000;
     let s = 10 + Math.random()*10;
-    console.log(x);
     return [x,z, s];
 }
 
 function createLights(scene) {
     // i.e sun light with all light rays parallels, the vector is the direction.
     let light0 = new BABYLON.DirectionalLight("dir0", new BABYLON.Vector3(-1, -1, 0), scene);
+    let light1 = new BABYLON.HemisphericLight("hemi0", new BABYLON.Vector3(0, 10, 0), scene);
+    
+    light1.intensity = 0.4;
+    light1.diffuse = new BABYLON.Color3(1,1, 1);
 
 }
 
@@ -138,7 +143,7 @@ function createRabbit(scene){
         rabbit.frontVector = new BABYLON.Vector3(0, 0, -1);
         rabbit.rotation.y = Math.PI;
 
-        let a = scene.beginAnimation(skeletons[0], 0, 72, true, 0.8);
+        let a = scene.beginAnimation(skeletons[0], 0, 72, true, 1);
         rabbit.move = () => {
             let yMovement = 0;
             if (rabbit.position.y > 2) {
