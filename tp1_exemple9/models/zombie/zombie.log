@@ -9,10 +9,10 @@ Exporter version: 2.80.1, Blender version: 2.91.2
 		Vert Color Precision:  3
 		Mat Weight Precision:  2
 		Keep Z-up r-handed  :  no
-		Texture directory   :  /Users/seb/Documents/mixamo/zombie/
+		Texture directory   :  /Users/seb/Documents/mixamo/zombzomb/
 	Python World class constructor completed
 	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
-	processing begun of skeleton:  Character, id:  0
+	processing begun of skeleton:  Zombie, id:  0
 		processing begun of bone:  mixamorig:Hips, index:  0
 		processing begun of bone:  mixamorig:Spine, index:  1
 		processing begun of bone:  mixamorig:Spine1, index:  2
@@ -78,16 +78,21 @@ Exporter version: 2.80.1, Blender version: 2.91.2
 		processing begun of bone:  mixamorig:RightFoot, index:  62
 		processing begun of bone:  mixamorig:RightToeBase, index:  63
 		processing begun of bone:  mixamorig:RightToe_End, index:  64
-		processing action Action:  in[1 - 2], out[0 - 2]
-		processing action Idle:  in[1 - 241], out[10 - 251]
-		processing action Running:  in[1 - 67], out[260 - 327]
-		processing action TPose:  in[1 - 2], out[340 - 342]
-		processing action Walking:  in[1 - 243], out[350 - 593]
-	processing begun of mesh:  Ch30
-		animation processing begun
-			processing action Idle:  in[1 - 241], out[0 - 241]
+		processing action Idle:  in[1 - 241], out[0 - 241]
+		processing action Running:  in[1 - 67], out[250 - 317]
+		processing action TPose:  in[1 - 2], out[330 - 332]
+		processing action Walking:  in[1 - 243], out[340 - 583]
+	processing begun of mesh:  zombie
+		processing begun of material:  Ch30_Body1
 		processing begun of material:  Ch30_Body
-		processing begun of material:  Ch30_Body
+			processing texture Ch30_1002_Normal
+				texture type:  bumpTexture, mapped using: "Ch30DiffuseUVLayer"
+			processing texture Ch30_1002_Diffuse
+				texture type:  diffuseTexture, mapped using: "Ch30DiffuseUVLayer"
+			processing texture Ch30_1002_Specular
+				texture type:  specularTexture, mapped using: "Ch30DiffuseUVLayer"
+			processing texture Ch30_1002_Glossiness
+				texture type:  value not meaningful 2, mapped using: "Ch30DiffuseUVLayer"
 			processing texture Ch30_1001_Normal
 				texture type:  bumpTexture, mapped using: "Ch30DiffuseUVLayer"
 			processing texture Ch30_1001_Diffuse
@@ -96,7 +101,6 @@ Exporter version: 2.80.1, Blender version: 2.91.2
 				texture type:  specularTexture, mapped using: "Ch30DiffuseUVLayer"
 			processing texture Ch30_1001_Glossiness
 				texture type:  value not meaningful 2, mapped using: "Ch30DiffuseUVLayer"
-		registered as also a user of material:  Ch30_Body
 		processing begun of multimaterial:  zombie.Multimaterial#0
 		Custom split normals with tangents being used
 		num positions      :  22697
@@ -113,7 +117,7 @@ Exporter version: 2.80.1, Blender version: 2.91.2
 			exported as 6 influencers
 			num skeletonWeights and skeletonIndices:  181576
 ========= Writing of JSON file started =========
-	writing mesh:  Ch30
+	writing mesh:  zombie
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 25.0488 secs
+elapsed time:  0 min, 31.2102 secs
