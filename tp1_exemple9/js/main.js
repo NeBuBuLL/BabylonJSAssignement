@@ -22,7 +22,7 @@ function startGame() {
 
     engine.runRenderLoop(() => {
     let deltaTime = engine.getDeltaTime(); // remind you something ?
-    /*
+    
     let zombie = scene.getMeshByName("zombie");
     if (zombie){
         if (!cameraset){
@@ -31,7 +31,7 @@ function startGame() {
             cameraset = true;
         }
         zombie.move();
-    } */
+    } /*
     let rabbit = scene.getMeshByName("Rabbit");
     if (rabbit){
         if (!cameraset){
@@ -40,7 +40,7 @@ function startGame() {
             cameraset = true;
         }
         rabbit.move();
-    } 
+    } */
     scene.render();   
     });
 }
@@ -50,8 +50,8 @@ function createScene() {
     let ground = createGround(scene);
     let freeCamera = createFreeCamera(scene);
 
-    //let zombie = createZombie(scene);
-    let rabbit = createRabbit(scene);
+    let zombie = createZombie(scene);
+    //let rabbit = createRabbit(scene);
    
     createLights(scene);
 
@@ -105,9 +105,9 @@ function createFreeCamera(scene) {
 function createFollowCamera(scene, target) {
     let camera = new BABYLON.FollowCamera("tankFollowCamera", target.position, scene, target);
 
-    camera.radius = 40; // how far from the object to follow
-	camera.heightOffset = 14; // how high above the object to place the camera
-	camera.rotationOffset = 180; // the viewing angle
+    camera.radius = 50; // how far from the object to follow
+	camera.heightOffset = 20; // how high above the object to place the camera
+	camera.rotationOffset = 0; // the viewing angle
 	camera.cameraAcceleration = .1; // how fast to move
 	camera.maxCameraSpeed = 5; // speed limit
 
@@ -154,15 +154,19 @@ function createRabbit(scene){
     });
 }
 function createZombie(scene) {
-    BABYLON.SceneLoader.ImportMesh("zombie", "models/zombie2/", "zombie.babylon", scene, (newMeshes, particleSystems, skeletons) => {
+    BABYLON.SceneLoader.ImportMesh("zombie", "models/zombie/", "zombie.babylon", scene, (newMeshes, particleSystems, skeletons) => {
         let zombie = newMeshes[0];
-
+        
         zombie.position = new BABYLON.Vector3(0,0,0);
-        zombie.scaling = new BABYLON.Vector3(1,1,1);
+        zombie.scaling = new BABYLON.Vector3(0.1,0.1, 0.1);
         zombie.speed = 1;
         zombie.frontVector = new BABYLON.Vector3(0, 0, 1);
+        zombie.name = "zombie";
 
-
+        zombie.idle = true;
+        zombie.walking = false;
+        zombie.running = false;
+       
         zombie.move = () => {
             let yMovement = 0;
             if (zombie.position.y > 2) {
@@ -171,6 +175,7 @@ function createZombie(scene) {
             } 
             if(inputStates.up) {
                 zombie.moveWithCollisions(zombie.frontVector.multiplyByFloats(zombie.speed, zombie.speed, zombie.speed));
+                zombie.idle
             }
             if(inputStates.down) {
                 
@@ -184,13 +189,46 @@ function createZombie(scene) {
                 zombie.rotation.y += 0.02;
                 zombie.frontVector = new BABYLON.Vector3(Math.sin(zombie.rotation.y), 0, Math.cos(zombie.rotation.y));
             }
-            if(inputStates.Shift)
+            if(inputStates.Shift){
                 zombie.speed = 2;
-            else
-                zombie.speed = 1;
+                switchAnim("run", zombie);
+            }
+            else{
+                
+                switchAnim("walk", zombie);
+            }
+    }
+    
+    if (zombie.idle){
+       let idleAnim = scene.beginAnimation(skeletons[0], 0, 241, true, 1);
+    }
+    else if (zombie.walking){
+        let walkAnim = scene.beginAnimation(skeletons[0], 342, 583, true, 1);
+    }   
+    else if(zombie.running){
+        let runAnim = scene.beginAnimation(skeletons[0], 250, 317, true, 1);
     }
     });
 }
+
+function switchAnim(state, zombie){
+    if (state == "idle"){
+        zombie.idle = true;
+        zombie.walking = false;
+        zombie.running = false;
+    }
+    else if (state == "walk"){
+        zombie.idle = false;
+        zombie.walking = true;
+        zombie.running = false;
+    }
+    else if (state == "run"){
+        zombie.idle = false;
+        zombie.walking = false;
+        zombie.running = true;
+    }
+    }
+    
 
 
 window.addEventListener("resize", () => {

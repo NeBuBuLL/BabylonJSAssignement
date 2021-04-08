@@ -9,7 +9,7 @@ Exporter version: 2.80.1, Blender version: 2.91.2
 		Vert Color Precision:  3
 		Mat Weight Precision:  2
 		Keep Z-up r-handed  :  no
-		Texture directory   :  /Users/seb/Documents/mixamo/zombzomb/
+		Texture directory   :  /Users/seb/git/BabylonJSAssignement/tp1_exemple9/models/zombie/
 	Python World class constructor completed
 	WARNING: No active camera has been assigned, or is not in a currently selected Blender layer
 	processing begun of skeleton:  Zombie, id:  0
@@ -83,24 +83,9 @@ Exporter version: 2.80.1, Blender version: 2.91.2
 		processing action TPose:  in[1 - 2], out[330 - 332]
 		processing action Walking:  in[1 - 243], out[340 - 583]
 	processing begun of mesh:  zombie
-		processing begun of material:  Ch30_Body1
-		processing begun of material:  Ch30_Body
-			processing texture Ch30_1002_Normal
-				texture type:  bumpTexture, mapped using: "Ch30DiffuseUVLayer"
-			processing texture Ch30_1002_Diffuse
-				texture type:  diffuseTexture, mapped using: "Ch30DiffuseUVLayer"
-			processing texture Ch30_1002_Specular
-				texture type:  specularTexture, mapped using: "Ch30DiffuseUVLayer"
-			processing texture Ch30_1002_Glossiness
-				texture type:  value not meaningful 2, mapped using: "Ch30DiffuseUVLayer"
-			processing texture Ch30_1001_Normal
-				texture type:  bumpTexture, mapped using: "Ch30DiffuseUVLayer"
-			processing texture Ch30_1001_Diffuse
-				texture type:  diffuseTexture, mapped using: "Ch30DiffuseUVLayer"
-			processing texture Ch30_1001_Specular
-				texture type:  specularTexture, mapped using: "Ch30DiffuseUVLayer"
-			processing texture Ch30_1001_Glossiness
-				texture type:  value not meaningful 2, mapped using: "Ch30DiffuseUVLayer"
+		processing begun of material:  Material
+		processing begun of material:  Material
+		registered as also a user of material:  Material
 		processing begun of multimaterial:  zombie.Multimaterial#0
 		Custom split normals with tangents being used
 		num positions      :  22697
@@ -120,4 +105,4 @@ Exporter version: 2.80.1, Blender version: 2.91.2
 	writing mesh:  zombie
 ========= Writing of JSON file completed =========
 ========= end of processing =========
-elapsed time:  0 min, 31.2102 secs
+elapsed time:  0 min, 19.6843 secs
