@@ -49,18 +49,16 @@ function createScene() {
 }
 
 function createGround(scene) {
-    const groundOptions = { width:1000, height:1000, subdivisions:20, minHeight:0, maxHeight:100, onReady: onGroundCreated};
-    //scene is optional and defaults to the current scene
-    const ground = BABYLON.MeshBuilder.CreateGround("ground", groundOptions, scene); 
 
-    function onGroundCreated() {
-        const groundMaterial = new BABYLON.TerrainMaterial("groundMaterial", scene);
-        groundMaterial.diffuseTexture = new BABYLON.Texture("images/grass.jpg");
-        ground.material = groundMaterial;
-        // to be taken into account by collision detection
-        ground.checkCollisions = true;
-        //groundMaterial.wireframe=true;
-    }
+    //scene is optional and defaults to the current scene
+    var ground = BABYLON.MeshBuilder.CreateGround("ground", {height: 1000, width: 1000, subdivisions: 8}, scene); 
+    ground.position.y = -1;
+    const groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
+    groundMaterial.diffuseTexture = new BABYLON.Texture("images/grass.png");
+    ground.material = groundMaterial;
+    // to be taken into account by collision detection
+    ground.checkCollisions = true;
+    //groundMaterial.wireframe=true;
     return ground;
 }
 
@@ -93,7 +91,7 @@ function createLights(scene) {
     let light1 = new BABYLON.HemisphericLight("hemi0", new BABYLON.Vector3(0, 10, 0), scene);
     
     light1.intensity = 0.4;
-    light1.diffuse = new BABYLON.Color3(1,1, 1);
+    light1.diffuse = new BABYLON.Color3(0.1, 1, 0.1);
 
 }
 
