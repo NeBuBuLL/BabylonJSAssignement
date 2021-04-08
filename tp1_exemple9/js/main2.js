@@ -42,7 +42,14 @@ function createScene() {
     let freeCamera = createFreeCamera(scene);
     createForest();
     let rabbit = createRabbit(scene);
-   
+    var skybox = BABYLON.MeshBuilder.CreateBox("skybox", {size:3000.0}, scene);
+    var skyboxMaterial = new BABYLON.StandardMaterial("skybox", scene);
+    skyboxMaterial.backFaceCulling = false;
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("skybox/skybox",scene);
+    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    skyboxMaterial.disableLighting = true;
+    skybox.material = skyboxMaterial;
+    skybox.position.y = 1000;
     createLights(scene);
 
    return scene;
