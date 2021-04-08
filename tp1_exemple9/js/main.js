@@ -1,5 +1,11 @@
 import Dude from "./Dude.js";
+/*************************
 
+MODELE DE ZOMBIE 
+AVEC SES ANIMATIONS EN FONCTION DE SON ETAT (IDLE, WALKING, RUNNING)
+ANIMATIONS FONCTIONNENT MAIS NE RENDENT PAS BIEN CAR NE SONT PAS SUR PLACE. IL FAUDRAIT LES CHANGER SUR BLENDER
+
+*************************/
 let canvas;
 let engine;
 let scene;
@@ -31,7 +37,8 @@ function startGame() {
             cameraset = true;
         }
         zombie.move();
-    } /*
+    } 
+    /*
     let rabbit = scene.getMeshByName("Rabbit");
     if (rabbit){
         if (!cameraset){
@@ -220,12 +227,8 @@ function createZombie(scene) {
             }
 
             if (!inputStates.Shift && !inputStates.up && !inputStates.down)
-                zombie.changeState("idle");
-
-
-            
+                zombie.changeState("idle");    
     }
-    
     });
 }
 
